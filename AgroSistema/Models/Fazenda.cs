@@ -11,10 +11,8 @@ namespace AgroSistema.Models
         public decimal AreaHectares { get; set; }
         public int ProdutorId { get; set; }
 
-        // Navegação
         public Produtor Produtor { get; set; }
 
-        // Lista de funcionários (coleção dentro da entidade)
         public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
 
         public bool Validar()

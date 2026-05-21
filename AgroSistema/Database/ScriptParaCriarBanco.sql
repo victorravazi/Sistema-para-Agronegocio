@@ -1,12 +1,8 @@
--- ============================================
--- SISTEMA DE GESTÃO DE AGRONEGÓCIO
--- Script de criação do banco de dados
--- ============================================
 
-CREATE DATABASE IF NOT EXISTS AgroSistema;
+
+CREATE DATABASE AgroSistema;
 USE AgroSistema;
 
--- Tabela: Produtor
 CREATE TABLE IF NOT EXISTS Produtor (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -16,7 +12,6 @@ CREATE TABLE IF NOT EXISTS Produtor (
     DataCadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela: Fazenda
 CREATE TABLE IF NOT EXISTS Fazenda (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -27,7 +22,6 @@ CREATE TABLE IF NOT EXISTS Fazenda (
     FOREIGN KEY (ProdutorId) REFERENCES Produtor(Id)
 );
 
--- Tabela: Cultura (tipo de plantação)
 CREATE TABLE IF NOT EXISTS Cultura (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(80) NOT NULL,
@@ -36,7 +30,6 @@ CREATE TABLE IF NOT EXISTS Cultura (
     Descricao VARCHAR(255)
 );
 
--- Tabela: Funcionario
 CREATE TABLE IF NOT EXISTS Funcionario (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -47,7 +40,6 @@ CREATE TABLE IF NOT EXISTS Funcionario (
     FOREIGN KEY (FazendaId) REFERENCES Fazenda(Id)
 );
 
--- Tabela: Colheita
 CREATE TABLE IF NOT EXISTS Colheita (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     FazendaId INT NOT NULL,
@@ -60,7 +52,6 @@ CREATE TABLE IF NOT EXISTS Colheita (
     FOREIGN KEY (CulturaId) REFERENCES Cultura(Id)
 );
 
--- Dados iniciais para Cultura
 INSERT INTO Cultura (Nome, Tipo, TempoMedioColheitaDias, Descricao) VALUES
 ('Soja', 'Grão', 120, 'Principal cultura do agronegócio brasileiro'),
 ('Milho', 'Grão', 90, 'Usado para alimentação humana e animal'),

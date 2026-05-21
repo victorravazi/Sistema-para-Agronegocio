@@ -22,28 +22,28 @@ namespace AgroSistema.Forms
             this.panelMenu.SuspendLayout();
             this.SuspendLayout();
 
-            // panelHeader
+            // O cabecalho
             this.panelHeader.BackColor = System.Drawing.Color.FromArgb(34, 85, 34);
             this.panelHeader.Controls.Add(this.lblTitulo);
             this.panelHeader.Controls.Add(this.lblSubtitulo);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Size = new System.Drawing.Size(420, 100);
 
-            // lblTitulo
+            // Titulo
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.Location = new System.Drawing.Point(20, 15);
             this.lblTitulo.Size = new System.Drawing.Size(380, 45);
             this.lblTitulo.Text = "🌾 AgroSistema";
 
-            // lblSubtitulo
+            // Subtitulo
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(200, 255, 200);
             this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblSubtitulo.Location = new System.Drawing.Point(22, 58);
             this.lblSubtitulo.Size = new System.Drawing.Size(380, 25);
             this.lblSubtitulo.Text = "Sistema de Gestão do Agronegócio";
 
-            // panelMenu
+            // Menu basicamente
             this.panelMenu.Location = new System.Drawing.Point(20, 120);
             this.panelMenu.Size = new System.Drawing.Size(380, 350);
             this.panelMenu.Controls.Add(this.btnProdutores);
@@ -53,7 +53,7 @@ namespace AgroSistema.Forms
             this.panelMenu.Controls.Add(this.btnColheitas);
             this.panelMenu.Controls.Add(this.btnSair);
 
-            // Configuração dos botões do menu
+            // config dos botões do menu
             System.Windows.Forms.Button[] btns = {
                 btnProdutores, btnFazendas, btnFuncionarios, btnCulturas, btnColheitas, btnSair
             };

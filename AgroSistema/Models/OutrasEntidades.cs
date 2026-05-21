@@ -2,7 +2,6 @@ using System;
 
 namespace AgroSistema.Models
 {
-    // Funcionario também herda de Pessoa
     public class Funcionario : Pessoa
     {
         public string Cargo { get; set; }
@@ -50,7 +49,6 @@ namespace AgroSistema.Models
         public decimal? QuantidadeToneladas { get; set; }
         public string Observacoes { get; set; }
 
-        // Navegação
         public Fazenda Fazenda { get; set; }
         public Cultura Cultura { get; set; }
 

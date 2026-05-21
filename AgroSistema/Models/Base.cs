@@ -1,17 +1,12 @@
-// ============================================
-// INTERFACES E MODELOS BASE
-// ============================================
 
 namespace AgroSistema.Models
 {
-    // Interface obrigatória (requisito do projeto)
     public interface IEntidade
     {
         int Id { get; set; }
         bool Validar();
     }
 
-    // Classe base com Herança (requisito do projeto)
     public abstract class Pessoa : IEntidade
     {
         public int Id { get; set; }

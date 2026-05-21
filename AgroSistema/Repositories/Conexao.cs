@@ -5,7 +5,7 @@ namespace AgroSistema.Repositories
 {
     public static class Conexao
     {
-        // Ajuste a string de conexão conforme seu ambiente
+     
         private static readonly string _connectionString =
             "Server=localhost;Database=AgroSistema;Uid=root;Pwd=;";
 

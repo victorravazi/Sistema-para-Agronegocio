@@ -28,7 +28,7 @@ namespace AgroSistema.Forms
             this.lblLista = new System.Windows.Forms.Label();
             this.SuspendLayout();
 
-            // lblTitulo
+            // Titulo
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(34, 85, 34);
             this.lblTitulo.Location = new System.Drawing.Point(12, 9);
