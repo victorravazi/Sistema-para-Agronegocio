@@ -25,7 +25,7 @@ namespace AgroSistema.Forms
 
         private void CarregarComboEstados()
         {
-            // ComboBox obrigatório no projeto
+            
             cboEstado.Items.Clear();
             string[] estados = { "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA",
                                   "MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN",
@@ -161,6 +161,24 @@ namespace AgroSistema.Forms
                 return;
             }
 
+            var repoFunc = new RepositorioFuncionario();
+            var funcionarios = repoFunc.ListarPorFazenda(_idSelecionado);
+            if (funcionarios.Count > 0)
+            {
+                MessageBox.Show("Esta fazenda possui funcionários cadastrados. Exclua os funcionários primeiro.",
+                    "Não é possível excluir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var repoColheita = new RepositorioColheita();
+            var colheitas = repoColheita.ListarPorFazenda(_idSelecionado);
+            if (colheitas.Count > 0)
+            {
+                MessageBox.Show("Esta fazenda possui colheitas registradas. Exclua as colheitas primeiro.",
+                    "Não é possível excluir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var confirm = MessageBox.Show("Deseja excluir esta fazenda?", "Confirmar",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -171,6 +189,8 @@ namespace AgroSistema.Forms
                     _repo.Deletar(_idSelecionado);
                     LimparCampos();
                     CarregarLista();
+                    MessageBox.Show("Excluído com sucesso!", "OK",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

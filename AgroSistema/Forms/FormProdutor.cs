@@ -15,13 +15,13 @@ namespace AgroSistema.Forms
             InitializeComponent();
         }
 
-        // ── Eventos de ciclo de vida ──────────────────────────────────────
+        
         private void FormProdutor_Load(object sender, EventArgs e)
         {
             CarregarLista();
         }
 
-        // ── Carregar lista ────────────────────────────────────────────────
+        
         private void CarregarLista()
         {
             try
@@ -38,7 +38,7 @@ namespace AgroSistema.Forms
             }
         }
 
-        // ── Seleção na lista ──────────────────────────────────────────────
+        
         private void listBoxProdutores_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxProdutores.SelectedItem is Produtor p)
@@ -51,12 +51,12 @@ namespace AgroSistema.Forms
             }
         }
 
-        // ── Botão Salvar ──────────────────────────────────────────────────
+        
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             try
             {
-                // Validação
+                // Validacoes (Nome, CPF, Email)
                 if (string.IsNullOrWhiteSpace(txtNome.Text))
                 {
                     MessageBox.Show("Preencha o Nome.", "Atenção",
@@ -64,11 +64,18 @@ namespace AgroSistema.Forms
                     txtNome.Focus();
                     return;
                 }
-                if (string.IsNullOrWhiteSpace(txtCPF.Text) || txtCPF.Text.Length < 11)
+                if (!CPFValido(txtCPF.Text))
                 {
                     MessageBox.Show("CPF inválido.", "Atenção",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCPF.Focus();
+                    return;
+                }
+                if (!EmailValido(txtEmail.Text))
+                {
+                    MessageBox.Show("Preencha um e-mail válido.", "Atenção",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtEmail.Focus();
                     return;
                 }
 
@@ -99,13 +106,21 @@ namespace AgroSistema.Forms
             }
         }
 
-        // ── Botão Excluir ─────────────────────────────────────────────────
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             if (_idSelecionado == 0)
             {
                 MessageBox.Show("Selecione um produtor para excluir.", "Atenção",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var repoFaz = new RepositorioFazenda();
+            var fazendas = repoFaz.ListarPorProdutor(_idSelecionado);
+            if (fazendas.Count > 0)
+            {
+                MessageBox.Show("Este produtor possui fazendas cadastradas. Exclua as fazendas primeiro.",
+                    "Não é possível excluir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -130,7 +145,7 @@ namespace AgroSistema.Forms
             }
         }
 
-        // ── Botão Novo ────────────────────────────────────────────────────
+
         private void btnNovo_Click(object sender, EventArgs e)
         {
             LimparCampos();
@@ -144,6 +159,45 @@ namespace AgroSistema.Forms
             txtTelefone.Text = "";
             txtEmail.Text = "";
             listBoxProdutores.ClearSelected();
+        }
+
+        private bool EmailValido(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email)) return false; 
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool CPFValido(string cpf)
+        {
+            cpf = cpf.Replace(".", "").Replace("-", "").Replace(" ", "");
+
+            if (cpf.Length != 11) return false;
+
+            if (new string(cpf[0], 11) == cpf) return false;
+
+            int soma = 0;
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(cpf[i].ToString()) * (10 - i);
+            int resto = (soma * 10) % 11;
+            if (resto == 10 || resto == 11) resto = 0;
+            if (resto != int.Parse(cpf[9].ToString())) return false;
+
+            soma = 0;
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(cpf[i].ToString()) * (11 - i);
+            resto = (soma * 10) % 11;
+            if (resto == 10 || resto == 11) resto = 0;
+            if (resto != int.Parse(cpf[10].ToString())) return false;
+
+            return true;
         }
     }
 }

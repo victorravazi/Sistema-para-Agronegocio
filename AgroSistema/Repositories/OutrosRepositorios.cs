@@ -153,5 +153,14 @@ namespace AgroSistema.Repositories
                 conn.Execute("DELETE FROM Colheita WHERE Id = @Id", new { Id = id });
             }
         }
+
+        public List<Colheita> ListarPorFazenda(int fazendaId)
+        {
+            using (var conn = Conexao.GetConnection())
+            {
+                var sql = "SELECT * FROM Colheita WHERE FazendaId = @FazendaId";
+                return conn.Query<Colheita>(sql, new { FazendaId = fazendaId }).ToList();
+            }
+        }
     }
 }
